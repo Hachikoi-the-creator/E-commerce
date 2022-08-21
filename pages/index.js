@@ -1,6 +1,6 @@
 import React from "react";
 import { client } from "../lib/client";
-import { Product, HeroBanner, Footer } from "../components";
+import { Product, HeroBanner, Footer, FooterBanner } from "../components";
 
 const Home = ({ products, bannerProducts }) => {
   return (
@@ -11,9 +11,11 @@ const Home = ({ products, bannerProducts }) => {
         <p>The bes sound in the market</p>
       </div>
       <div className="products-container">
-        {products?.map((item) => item.name)}
+        {products?.map((item) => (
+          <Product key={item._id} product={item} />
+        ))}
       </div>
-      Footer
+      <FooterBanner footerProducts={bannerProducts && bannerProducts[1]} />
     </>
   );
 };
