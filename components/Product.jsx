@@ -3,7 +3,6 @@ import Link from "next/link";
 import { urlFor } from "../lib/client";
 
 export default function Product({ product: { image, name, slug, price } }) {
-  // [].length
   return (
     <div>
       <div>
