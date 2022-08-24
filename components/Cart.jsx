@@ -56,12 +56,67 @@ export default function Cart() {
             cartItems.map((item) => (
               <div className="product" key={item._id}>
                 <img
+                  className="cart-product-image"
                   src={urlFor(item.image[0])}
                   alt={`image for ${item.name}`}
                 />
+                <div className="item-desc">
+                  <div className="flex top">
+                    <h5>{item.name}</h5>
+                    <h4>${item.price}</h4>
+                  </div>
+                  <div className="flex bottom">
+                    <div>
+                      <p className="quantity-desc">
+                        <span
+                          className="minus"
+                          onClick={() =>
+                            toggleCartItemQuanitity(item._id, "dec")
+                          }
+                        >
+                          <AiOutlineMinus />
+                        </span>
+                        <span className="num">{item.quantity}</span>
+                        <span
+                          className="plus"
+                          onClick={() =>
+                            toggleCartItemQuanitity(item._id, "inc")
+                          }
+                        >
+                          <AiOutlinePlus />
+                        </span>
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={() => onRemove(item._id)}
+                    >
+                      <TiDeleteOutline />
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
         </div>
+        {cartItems.length >= 1 &&
+          cartItems.map((item) => (
+            <div className="cart-bottom">
+              <div className="total">
+                <h3>Subtotal:</h3>
+                <h3>${totalPrice}</h3>
+              </div>
+              <div className="btn-container">
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={"handleCheckout"}
+                >
+                  Pay with Stripe
+                </button>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

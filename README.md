@@ -14,6 +14,7 @@
 - Add links to the icons in footer, and cursor-pointer
 - fix the quanity box styles, no cursor on number + fix border
 - fix buttons Buy now & Add to cart styling, they go beyond the VP
+- 2:31:30 Fix the weird bug were the items change position as we click on crememnt or decrement
 
 
 **Install exactly the version of the packages specified**
