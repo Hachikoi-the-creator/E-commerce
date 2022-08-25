@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-// notification everytime we add something to the cart
 import { toast } from "react-hot-toast";
 
 const Context = createContext();
@@ -14,13 +13,7 @@ export const StateContext = ({ children }) => {
   let foundProduct;
   let index;
 
-  /*
-   * Check if the item is already in the cart ?
-   * (true) just add more qty to that product :
-   * (false) Add the new product whit the amount of it specified
-   */
   const onAdd = (product, quantity) => {
-    // tries to find the product in the cart
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
     );
@@ -49,13 +42,18 @@ export const StateContext = ({ children }) => {
     toast.success(`${qty} ${product.name} added to the cart.`);
   };
 
-  const onRemove = (id = 0) => {
-    foundProduct = cartItems.find((item) => item._id === id);
-    const newCartItems = cartItems.filter((item) => item._id !== id);
+  const onRemove = (product) => {
+    foundProduct = cartItems.find((item) => item._id === product._id);
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
+    setTotalPrice(
+      (prevTotalPrice) =>
+        prevTotalPrice - foundProduct.price * foundProduct.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
+    );
     setCartItems(newCartItems);
-    setTotalPrice((prev) => prev - foundProduct.price * foundProduct.quantity);
-    setTotalQuantities((prev) => prev - foundProduct.quantity);
   };
 
   const toggleCartItemQuanitity = (id, value) => {
@@ -68,23 +66,20 @@ export const StateContext = ({ children }) => {
         ...newCartItems,
         { ...foundProduct, quantity: foundProduct.quantity + 1 },
       ]);
-      setTotalPrice((prev) => prev + foundProduct.price);
-      setTotalQuantities((prev) => prev + 1);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
     } else if (value === "dec") {
       if (foundProduct.quantity > 1) {
         setCartItems([
           ...newCartItems,
           { ...foundProduct, quantity: foundProduct.quantity - 1 },
         ]);
-        setTotalPrice((prev) => prev - foundProduct.price);
-        setTotalQuantities((prev) => prev - 1);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
       }
-    } else {
-      console.log("Invalid action for `toggleCartItemQuanitity`");
     }
   };
 
-  //   easier increment & decrement (Cannot be prev++ nor prev--)
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -96,6 +91,7 @@ export const StateContext = ({ children }) => {
       return prevQty - 1;
     });
   };
+
   return (
     <Context.Provider
       value={{
@@ -108,11 +104,11 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        toggleCartItemQuanitity,
+        onRemove,
         setCartItems,
         setTotalPrice,
         setTotalQuantities,
-        toggleCartItemQuanitity,
-        onRemove,
       }}
     >
       {children}
