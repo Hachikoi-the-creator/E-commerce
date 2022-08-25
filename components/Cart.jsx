@@ -34,6 +34,7 @@ const Cart = () => {
       },
       body: JSON.stringify(cartItems),
     });
+    console.log("Cart items", cartItems);
 
     if (response.statusCode === 500) return;
 

@@ -6,7 +6,7 @@
   - [Come back later](#come-back-later)
   - [Some tips](#some-tips)
 
-- 1:41
+[src](https://github.com/adrianhajdin/ecommerce_sanity_stripe)
 
 ## TODO
 - add aspect-atio to banner img
