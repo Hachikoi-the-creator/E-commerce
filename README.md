@@ -9,6 +9,16 @@
 [src](https://github.com/adrianhajdin/ecommerce_sanity_stripe)
 
 ## TODO
+- **Deployment** Change price settings to product set inside strip platform to avoid user errors
+```js
+line_items: [
+  {
+    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+    price: "price_1LaoixFaU3SEv1gLaPwA9ITm",
+    quantity: 1,
+  },
+],
+```
 - add aspect-atio to banner img
 - add link entry to product schema, generates from product name `name.join("-")`
 - Add links to the icons in footer, and cursor-pointer
