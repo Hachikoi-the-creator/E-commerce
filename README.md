@@ -65,3 +65,5 @@ $ npm i --legacy-peer-deps
 ## Some tips
 - `control + shift + R` to hard reaload removing chache
 - **Marquee**: stands for list of scrolling divs
+
+did an oopsi xd
