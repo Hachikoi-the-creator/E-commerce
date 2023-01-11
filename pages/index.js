@@ -1,35 +1,21 @@
-import React from "react";
-import { client } from "../lib/client";
-import { Product, HeroBanner, FooterBanner } from "../components";
 
-const Home = ({ products, bannerProducts }) => {
+export default function Home({ products }) {
   return (
     <>
-      <HeroBanner bannerProducts={bannerProducts.length && bannerProducts[0]} />
       <div className="products-heading">
         <h2>Best selling</h2>
         <p>The bes sound in the market</p>
       </div>
+      {products}
       <div className="products-container">
-        {products?.map((item) => (
-          <Product key={item._id} product={item} />
-        ))}
       </div>
-      <FooterBanner footerProducts={bannerProducts && bannerProducts[1]} />
     </>
   );
 };
 
-export default Home;
 
 // Makes API call in the server and returns the page already whit the data, make it available globaly
 export const getServerSideProps = async () => {
-  // Give an arr of all the products
-  const query = "*[_type=='product']";
-  const products = await client.fetch(query);
 
-  const bannerQuery = "*[_type=='banner']";
-  const bannerProducts = await client.fetch(bannerQuery);
-
-  return { props: { products, bannerProducts } };
+  return { props: { products: "bannerProducts" } };
 };
